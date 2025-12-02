@@ -113,7 +113,7 @@ app.layout = dmc.MantineProvider(
                                         label="Unity Catalog Table Name",
                                         description="Format: catalog.schema.table",
                                         placeholder="main.sandbox.my_table",
-                                        value="amace_cdr_bronze_dev.oqmb_test.trips",
+                                        value="big_test.default.trips",
                                         required=True,
                                         style={"width": "100%"},
                                         leftSection=get_icon(
@@ -882,7 +882,7 @@ def add_row_obo_callback(n_clicks, http_path):
         insert_nyctaxi_row(conn)
         conn.close()
         return (
-            "Row added to amace_cdr_bronze_dev.oqmb_test.trips using OBO authorization.",
+            "Row added to big_test.default.trips using OBO authorization.",
             "green",
             False,
             "Row Added",
@@ -934,7 +934,7 @@ def add_row_sp_callback(n_clicks, http_path):
         insert_nyctaxi_row(conn)
         conn.close()
         return (
-            "Row added to amace_cdr_bronze_dev.oqmb_test.trips using SP authorization.",
+            "Row added to big_test.default.trips using SP authorization.",
             "green",
             False,
             "Row Added",
