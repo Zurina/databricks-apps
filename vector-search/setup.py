@@ -32,7 +32,7 @@ dbutils.library.restartPython()
 
 # DBTITLE 1,Define schema name and existing resources
 # Input a Unity Catalog schema where your vector search index should be created
-schema_name = "amace_cdr_bronze_dev.oqmb_test"  # Example: catalog.schema
+schema_name = "big_test.default"  # Example: catalog.schema
 
 # Optionally, input your existing resources here
 vector_search_endpoint_name = ""

@@ -75,11 +75,11 @@ def run_query(table_name, conn):
 
 def insert_nyctaxi_row(conn):
     """
-    Inserts a dummy row into amace_cdr_bronze_dev.oqmb_test.trips table.
+    Inserts a dummy row into big_test.default.trips table.
     Adjust the columns/values as needed to match the schema.
     """
     query = """
-    INSERT INTO amace_cdr_bronze_dev.oqmb_test.trips (
+    INSERT INTO big_test.default.trips (
         tpep_pickup_datetime,
         tpep_dropoff_datetime,
         trip_distance,

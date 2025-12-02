@@ -5,4 +5,4 @@ env:
 - name: VECTOR_SEARCH_ENDPOINT_NAME
   value: 7794e7e65145_vs_endpoint
 - name: VECTOR_SEARCH_INDEX_NAME
-  value: amace_cdr_bronze_dev.oqmb_test.62af595bdba6_vs_index
+  value: big_test.default.62af595bdba6_vs_index
