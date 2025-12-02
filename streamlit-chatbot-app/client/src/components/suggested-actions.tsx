@@ -16,7 +16,7 @@ interface SuggestedActionsProps {
 function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
   const { chatHistoryEnabled } = useAppConfig();
   const suggestedActions = [
-    'What should I use Databricks Apps as chatbots for? Why not just use Genie? Short and concise answer please, but please include a table overview as well.'
+    'What should I use Databricks Apps as chatbots for? Why not just use Genie? Short and concise answer please, but please include a table overview as well. And give a few use case examples'
   ];
 
   return (
