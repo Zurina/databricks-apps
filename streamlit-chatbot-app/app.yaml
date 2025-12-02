@@ -4,3 +4,5 @@ runtime: nodejs20
 env:
   - name: DATABRICKS_SERVING_ENDPOINT
     valueFrom: serving-endpoint
+  - name: GENIE_SPACE_ID
+    valueFrom: genie-space
