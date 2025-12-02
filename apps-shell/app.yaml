@@ -1,0 +1,5 @@
+command: ["python", "app.py"]
+
+env_variables:
+  DATABRICKS_SQL_WAREHOUSE_ID: "6ca1701fb71cf0f5"
+  DATABRICKS_GENIE_SPACE_ID: "01f0cdf1a3121e90aaf6d5655ee8a78c"
