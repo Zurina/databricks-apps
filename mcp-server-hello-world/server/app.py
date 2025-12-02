@@ -22,6 +22,7 @@ from fastmcp import FastMCP
 
 from .tools import load_tools
 from .utils import header_store
+from .tools import list_registered_tools
 
 mcp_server = FastMCP(name="custom-mcp-server")
 
@@ -56,6 +57,12 @@ async def serve_index():
         return FileResponse(STATIC_DIR / "index.html")
     else:
         return {"message": "Custom Open API Spec MCP Server is running", "status": "healthy"}
+
+
+@app.get("/api/tools", include_in_schema=False)
+async def api_list_tools():
+    """Return a JSON list of available tools and their metadata for the frontend."""
+    return list_registered_tools()
 
 
 # Create the final application by combining MCP routes with custom API routes

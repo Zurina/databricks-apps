@@ -14,6 +14,11 @@ Each tool should:
 
 from server import utils
 
+# A simple registry to expose metadata about the registered tools to the
+# static frontend. load_tools() will populate this list when called during
+# application startup.
+tools_registry = []
+
 
 def load_tools(mcp_server):
     """
@@ -63,6 +68,18 @@ def load_tools(mcp_server):
             "message": "Custom MCP Server is healthy and connected to Databricks Apps.",
         }
 
+    # Register metadata for the health tool so the frontend can display it
+    tools_registry.append(
+        {
+            "name": "health",
+            "description": (
+                "Check the health of the MCP server and Databricks connection. "
+                "Returns status and human-readable message."
+            ),
+            "returns": "dict",
+        }
+    )
+
     @mcp_server.tool
     def get_current_user() -> dict:
         """
@@ -106,6 +123,24 @@ def load_tools(mcp_server):
         except Exception as e:
             return {"error": str(e), "message": "Failed to retrieve user information"}
 
+    # Register metadata for the get_current_user tool
+    tools_registry.append(
+        {
+            "name": "get_current_user",
+            "description": (
+                "Get information about the current authenticated user. "
+                "Returns display_name, user_name and active flag."
+            ),
+            "returns": "dict",
+        }
+    )
+
+    # TODO: Add more tools as necessary
+
+
+def list_registered_tools():
+    """Return a list of registered tools metadata.
+
+    This is used by the web frontend to show the available tools.
     """
-    TODO: Add more tools as necessary
-    """
+    return tools_registry
