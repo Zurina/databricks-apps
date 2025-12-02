@@ -26,6 +26,15 @@ def getData():
 
 data = getData()
 
+# add helper datetime and ZIP string columns for filtering
+data['_pickup_dt'] = pd.to_datetime(data['tpep_pickup_datetime'], errors='coerce')
+data['_dropoff_dt'] = pd.to_datetime(data['tpep_dropoff_datetime'], errors='coerce')
+data['_pickup_date'] = data['_pickup_dt'].dt.date
+data['_dropoff_date'] = data['_dropoff_dt'].dt.date
+# keep original ZIP columns intact; add string versions for safe multiselect comparisons
+data['_pickup_zip_str'] = data['pickup_zip'].astype(str)
+data['_dropoff_zip_str'] = data['dropoff_zip'].astype(str)
+
 # -------------------------------
 # Streamlit Page Config
 # -------------------------------
@@ -49,15 +58,43 @@ with st.sidebar:
     dist_range = st.slider("Trip distance (miles)", min_value=min_dist, max_value=max_dist,
                            value=(min_dist, max_dist), step=0.1)
 
+    # Pickup date range
+    min_pickup_date = data['_pickup_date'].min()
+    max_pickup_date = data['_pickup_date'].max()
+    pickup_date_range = st.date_input("Pickup date range", value=(min_pickup_date, max_pickup_date))
+
+    # Dropoff date range
+    min_dropoff_date = data['_dropoff_date'].min()
+    max_dropoff_date = data['_dropoff_date'].max()
+    dropoff_date_range = st.date_input("Dropoff date range", value=(min_dropoff_date, max_dropoff_date))
+
+    # Pickup ZIP(s)
+    pickup_zip_options = sorted(data['_pickup_zip_str'].dropna().unique().tolist())
+    pickup_zip_sel = st.multiselect("Pickup ZIP(s)", options=pickup_zip_options, default=[])
+
+    # Dropoff ZIP(s)
+    dropoff_zip_options = sorted(data['_dropoff_zip_str'].dropna().unique().tolist())
+    dropoff_zip_sel = st.multiselect("Dropoff ZIP(s)", options=dropoff_zip_options, default=[])
+
 # -------------------------------
-# Apply Filters (without ZIP filters)
+# Apply Filters (with new date and ZIP filters)
 # -------------------------------
 filtered = data[
     (data['fare_amount'] >= fare_range[0]) &
     (data['fare_amount'] <= fare_range[1]) &
     (data['trip_distance'] >= dist_range[0]) &
-    (data['trip_distance'] <= dist_range[1])
+    (data['trip_distance'] <= dist_range[1]) &
+    (data['_pickup_date'] >= pickup_date_range[0]) &
+    (data['_pickup_date'] <= pickup_date_range[1]) &
+    (data['_dropoff_date'] >= dropoff_date_range[0]) &
+    (data['_dropoff_date'] <= dropoff_date_range[1])
 ]
+
+# apply ZIP filters if any selected
+if pickup_zip_sel:
+    filtered = filtered[filtered['_pickup_zip_str'].isin(pickup_zip_sel)]
+if dropoff_zip_sel:
+    filtered = filtered[filtered['_dropoff_zip_str'].isin(dropoff_zip_sel)]
 
 # -------------------------------
 # Scatter Chart: Fare vs Distance
