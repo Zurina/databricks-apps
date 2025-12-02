@@ -22,7 +22,7 @@ export const Greeting = () => {
         transition={{ delay: 0.6 }}
         className="text-xl text-zinc-500 md:text-2xl"
       >
-        How can I help you today?
+        'What can I use Databricks Apps as chatbots for? Why not just use Genie?'
       </motion.div>
     </div>
   );
