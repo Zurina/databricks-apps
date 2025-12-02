@@ -3,6 +3,6 @@ command:
 - app.py
 env:
 - name: VECTOR_SEARCH_ENDPOINT_NAME
-  value: 7794e7e65145_vs_endpoint
+  value: b451acc3168f_vs_endpoint
 - name: VECTOR_SEARCH_INDEX_NAME
   value: big_test.default.62af595bdba6_vs_index
