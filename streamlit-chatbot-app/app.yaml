@@ -1,11 +1,6 @@
-command: [
-  "streamlit", 
-  "run",
-  "app.py"
-]
+command: ["npm", "run", "start"]
+runtime: nodejs20
 
 env:
-  - name: STREAMLIT_BROWSER_GATHER_USAGE_STATS
-    value: "false"
-  - name: "SERVING_ENDPOINT"
-    valueFrom: "serving-endpoint"
+  - name: DATABRICKS_SERVING_ENDPOINT
+    valueFrom: serving-endpoint
